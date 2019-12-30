@@ -33,11 +33,15 @@
             // 
             // realDrawingPanel
             // 
-            this.realDrawingPanel.Location = new System.Drawing.Point(0, 3);
+            this.realDrawingPanel.Location = new System.Drawing.Point(0, 0);
+            this.realDrawingPanel.Margin = new System.Windows.Forms.Padding(0);
             this.realDrawingPanel.Name = "realDrawingPanel";
             this.realDrawingPanel.Size = new System.Drawing.Size(493, 264);
             this.realDrawingPanel.TabIndex = 0;
             this.realDrawingPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.RealDrawingPanel_Paint);
+            this.realDrawingPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.realDrawingPanel_MouseDown);
+            this.realDrawingPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.realDrawingPanel_MouseMove);
+            this.realDrawingPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.realDrawingPanel_MouseUp);
             // 
             // TimesheetMain
             // 

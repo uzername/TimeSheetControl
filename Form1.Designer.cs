@@ -33,11 +33,15 @@
             // 
             // timesheetMain1
             // 
+            this.timesheetMain1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.timesheetMain1.AutoScroll = true;
+            this.timesheetMain1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.timesheetMain1.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(204)));
             this.timesheetMain1.Location = new System.Drawing.Point(12, 12);
             this.timesheetMain1.Name = "timesheetMain1";
-            this.timesheetMain1.Size = new System.Drawing.Size(682, 396);
+            this.timesheetMain1.Size = new System.Drawing.Size(776, 426);
             this.timesheetMain1.TabIndex = 0;
             // 
             // Form1
