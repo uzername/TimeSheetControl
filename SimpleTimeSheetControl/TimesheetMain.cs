@@ -18,12 +18,23 @@ namespace TimeSheetControl.SimpleTimeSheetControl
         /// list of data to render
         /// </summary>
         public List<InputDataClass> completeListOfDataToRender = null;
+
+        public List<Rectangle> valuesToRender = null;
+
         /// <summary>
         /// Value of True indicates that size of first column will be recalculated to fit content once we reach draw event
         /// After that value will be flipped to false
         /// </summary>
-        public bool recalculateFirstColumnSize = false; 
-        private bool nowDraggingFirstColumn = false; //indicates that we are dragging now separator of first column
+        public bool recalculateFirstColumnSize = false;
+        /// <summary>
+        /// Value of True indicates that set of rectangles will be recalculated to fit timings in completeListOfDataToRender once we reach draw event
+        /// After that value will be flipped to false
+        /// </summary>
+        public bool recalculateRectangles = false;
+        /// <summary>
+        /// //indicates that we are dragging now separator of first column. Setting it manually outside the class makes things go wew
+        /// </summary>
+        private bool nowDraggingFirstColumn = false; 
         private int separatorLocationFirstColumn = 0; // position on X where to draw the separator. 
         private Pen separatorFirstColumn = new Pen(Color.Black, 1.0f); // style for line which separates first column
         private Pen separatorRows = new Pen(Color.DarkGray, 1.0f); // style for rows separator
@@ -143,7 +154,16 @@ namespace TimeSheetControl.SimpleTimeSheetControl
                 this.realDrawingPanel.Refresh();
             }
         }
+        /// <summary>
+        /// recalculate arrays of figures which will be used to render things
+        /// </summary>
+        public void recalculateRectanglesArray ()
+        {
+
+        }
+
     }
+    
     public class MyPanelForDrawing : Panel
     {
         public MyPanelForDrawing()
