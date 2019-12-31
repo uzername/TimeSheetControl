@@ -43,6 +43,7 @@
             this.timesheetMain1.Name = "timesheetMain1";
             this.timesheetMain1.Size = new System.Drawing.Size(776, 426);
             this.timesheetMain1.TabIndex = 0;
+            this.timesheetMain1.Resize += new System.EventHandler(this.timesheetMain1_Resize);
             // 
             // Form1
             // 

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.realDrawingPanel = new System.Windows.Forms.Panel();
+            this.realDrawingPanel = new TimeSheetControl.SimpleTimeSheetControl.MyPanelForDrawing();
             this.SuspendLayout();
             // 
             // realDrawingPanel
@@ -50,6 +50,7 @@
             this.AutoScroll = true;
             this.Controls.Add(this.realDrawingPanel);
             this.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(204)));
+            this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "TimesheetMain";
             this.Size = new System.Drawing.Size(682, 396);
             this.ResumeLayout(false);
@@ -58,6 +59,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel realDrawingPanel;
+        public MyPanelForDrawing realDrawingPanel;
     }
 }

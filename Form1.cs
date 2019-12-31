@@ -16,6 +16,7 @@ namespace TimeSheetControl
         public Form1()
         {
             InitializeComponent();
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -60,7 +61,21 @@ namespace TimeSheetControl
             timesheetMain1.InscriptionFont = new Font("Arial", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             timesheetMain1.recalculateFirstColumnSize = true;
 
+
             timesheetMain1.Refresh();
+        }
+
+        private void timesheetMain1_Resize(object sender, EventArgs e)
+        {
+            if (timesheetMain1.Height  < timesheetMain1.desiredheight)
+            {
+                timesheetMain1.realDrawingPanel.Height = timesheetMain1.desiredheight;
+            } else
+                {
+                timesheetMain1.realDrawingPanel.Height = timesheetMain1.Height-2;
+            }
+            //timesheetMain1.Refresh();
+
         }
     }
 }

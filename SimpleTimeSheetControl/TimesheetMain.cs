@@ -11,13 +11,18 @@ using System.Collections.ObjectModel;
 
 namespace TimeSheetControl.SimpleTimeSheetControl
 {
+
     public partial class TimesheetMain : UserControl
     {
         /// <summary>
         /// list of data to render
         /// </summary>
         public List<InputDataClass> completeListOfDataToRender = null;
-        public bool recalculateFirstColumnSize = false; //indicates that size of first column will be recalculated to fit content once we reach draw event
+        /// <summary>
+        /// Value of True indicates that size of first column will be recalculated to fit content once we reach draw event
+        /// After that value will be flipped to false
+        /// </summary>
+        public bool recalculateFirstColumnSize = false; 
         private bool nowDraggingFirstColumn = false; //indicates that we are dragging now separator of first column
         private int separatorLocationFirstColumn = 0; // position on X where to draw the separator. 
         private Pen separatorFirstColumn = new Pen(Color.Black, 1.0f); // style for line which separates first column
@@ -31,17 +36,18 @@ namespace TimeSheetControl.SimpleTimeSheetControl
         /// <summary>
         /// width of first column
         /// </summary>
-        private int desiredwdth = 0;
+        public int desiredwdth = 0;
         /// <summary>
         /// height of texts in control
         /// </summary>
-        private int desiredheight = 0;
+        public int desiredheight = 0;
         public TimesheetMain() {
             InitializeComponent();
             // set font later
             InscriptionFont = new Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             separatorRows.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
             this.realDrawingPanel.Width = this.Width-2;
+            
         }
 
         // https://www.codeproject.com/Articles/2118/Bypass-Graphics-MeasureString-limitations
@@ -77,15 +83,25 @@ namespace TimeSheetControl.SimpleTimeSheetControl
                 
             }
             if (recalculateFirstColumnSize)   {
-                if (desiredheight<this.realDrawingPanel.Height)  {
-                    this.realDrawingPanel.Height = this.Height-2;
-                } else
+                int maxValue = desiredheight;
+                if (maxValue<this.realDrawingPanel.Height)  {
+                    maxValue = this.realDrawingPanel.Height-2;
+                } 
+                if (maxValue<this.Height)
                 {
-                    this.realDrawingPanel.Height = desiredheight;
+                    maxValue = this.Height-2;
                 }
+
+                this.realDrawingPanel.Height = maxValue;
                 recalculateFirstColumnSize = false;
             }
-            e.Graphics.DrawLine(separatorFirstColumn, desiredwdth, 0, desiredwdth, this.realDrawingPanel.Height);
+
+            e.Graphics.DrawLine(separatorFirstColumn, desiredwdth, 0, desiredwdth, this.realDrawingPanel.Height); // draw separator of first column
+            //are we dragging now separator of first column? draw it!
+            if (nowDraggingFirstColumn)
+            {
+                e.Graphics.DrawLine(separatorFirstColumnDragged, separatorLocationFirstColumn, 0, separatorLocationFirstColumn, this.realDrawingPanel.Height);
+            }
 
             //draw horizontal lines at end
             for (int iii=1; iii <= completeListOfDataToRender.Count; iii++)  {
@@ -100,8 +116,12 @@ namespace TimeSheetControl.SimpleTimeSheetControl
                 this.Cursor = Cursors.SizeWE;
             } else {
                 if (e.Button == MouseButtons.None)
-                this.Cursor = Cursors.Default; else if (nowDraggingFirstColumn)
+                    this.Cursor = Cursors.Default;
+                else if (nowDraggingFirstColumn)  {
                     this.Cursor = Cursors.SizeWE;
+                    this.separatorLocationFirstColumn = e.X;
+                    realDrawingPanel.Refresh();
+                }
             }
         }
 
@@ -116,7 +136,19 @@ namespace TimeSheetControl.SimpleTimeSheetControl
 
         private void realDrawingPanel_MouseUp(object sender, MouseEventArgs e)
         {
-            nowDraggingFirstColumn = false;
+            if (nowDraggingFirstColumn)
+            {
+                nowDraggingFirstColumn = false;
+                desiredwdth = e.X;
+                this.realDrawingPanel.Refresh();
+            }
+        }
+    }
+    public class MyPanelForDrawing : Panel
+    {
+        public MyPanelForDrawing()
+        {
+            this.DoubleBuffered = true;
         }
     }
 }
